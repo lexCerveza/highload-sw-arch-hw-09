@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  percona:
+    image: percona:latest
+    container_name: percona-local
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_DATABASE=test
+    volumes:
+      - mysql.data:/var/lib/mysql
+  postgres:
+    image: postgres:latest
+    container_name: postgres-local
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=root
+      - POSTGRES_DB=test
+    volumes:
+      - postgres.data:/var/lib/postgresql/data
+
+volumes:
+  mysql.data:
+    name: mysql.data
+  postgres.data:
+    name: postgres.data
